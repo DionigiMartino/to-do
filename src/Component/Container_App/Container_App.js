@@ -1,6 +1,6 @@
 import React from 'react';
 import InputName from '../inputName/inputName';
-import Aux from '../../Hoc/Aux.js';
+import Aux from '../Hoc/Aux';
 
 class Container_App extends React.Component {
     render(){
