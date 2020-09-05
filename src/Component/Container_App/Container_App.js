@@ -8,22 +8,41 @@ class Container_App extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            listCont: []
+            listCont: ['Ciao', 'Come va?'],
+            valueInputCheck: '',
+            clicked: false
         }
+
+        this.inserimentoValore = this.inserimentoValore.bind(this);
+        this.changeInputValue = this.changeInputValue.bind(this);
     }
 
-    inserimentoValore(i){
-        const listCont = this.state.listCont;
-        this.setState({listCont: listCont.push('Ciao')});
+    inserimentoValore(e){
+        let listCont = this.state.listCont;
+        let clicked = this.state.clicked;
+        e.preventDefault();
+        this.setState({listCont: listCont.push(this.state.valueInputCheck), clicked: !clicked})
         console.log(listCont)
     }
 
+    changeInputValue(e){
+        this.setState({valueInputCheck: e.target.value})
+        console.log(this.state.valueInputCheck)
+    }
+
     render(){
+        let Lista;
+        if(this.state.listCont.length > 0){
+            Lista = (
+                <List ListMap={this.state.listCont} /> 
+            )
+        }
+
         return(
             <Aux>
                 <div className={container.whole_Container}>
-                    <InputName addList={() => this.inserimentoValore()} />
-                    <List ListMap={this.state.listCont} />
+                    <InputName addList={this.inserimentoValore} valueInput={this.state.valueInputCheck} changeValue={this.changeInputValue} />
+                    {Lista}
                 </div>
             </Aux>
         )

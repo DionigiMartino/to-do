@@ -1,0 +1,8 @@
+.whole_Container {
+    width: 45vw;
+    height: auto;
+    margin: 2.5% auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
