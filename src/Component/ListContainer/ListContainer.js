@@ -1,39 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ListStyle from './ListContainer.module.css';
 
-class ListToDo extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            ListMap: this.props.ListMap,
-            clicked: this.props.clicked
-        }
-    }
+import InputName from '../inputName/inputName';
+import ListElement from '../ListContainer/ListElement/ListElement'
+import Aux from '../Hoc/Aux'
 
-    componentDidMount(){
-        console.log('mounted')
-    }
-
-    componentDidUpdate(){
-        if(this.state.clicked){
-            this.setState({
-                ListMap: this.props.ListMap
-            })
-        }
-    }
-
-    render(){
-        let list = this.state.ListMap;
-        let listInsert = list.map(el => {
-            return <li key={el.toString()}>{el}</li>
-        })
-
-        return (
+const ListToDo = props => {
+    return (
+        <Aux>
             <ul className={ListStyle.ListContainer}>
-                {listInsert}
+                <ListElement ListMap={props.ListMap} />
             </ul>
-        )
-    }
+            <InputName addList={props.inserimentoValore} valueInput={props.valueInputCheck} changeValue={props.changeInputValue} />
+        </Aux>
+    )
 }
 
 export default ListToDo;

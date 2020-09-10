@@ -1,49 +1,58 @@
 import React from 'react';
-import InputName from '../inputName/inputName';
 import Aux from '../Hoc/Aux';
 import container from './Container_App.module.css';
-import List from '../ListContainer/ListContainer';
 
 class Container_App extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            listCont: ['Ciao', 'Come va?'],
-            valueInputCheck: '',
-            clicked: false
+            listCont: []
         }
-
         this.inserimentoValore = this.inserimentoValore.bind(this);
-        this.changeInputValue = this.changeInputValue.bind(this);
+    }
+
+    createItem(item){
+        return (
+            <li key={item.key} name={item.key} className={container.ListContainerElement}>{item.testo}</li>
+        )
     }
 
     inserimentoValore(e){
-        let listCont = this.state.listCont;
-        let clicked = this.state.clicked;
-        e.preventDefault();
-        this.setState({listCont: listCont.push(this.state.valueInputCheck), clicked: !clicked})
-        console.log(listCont)
-    }
+        if(this._inputElement !== ""){
+            let newItem = {
+                key: Date.now(),
+                testo: this._inputElement.value
+            }
 
-    changeInputValue(e){
-        this.setState({valueInputCheck: e.target.value})
-        console.log(this.state.valueInputCheck)
+            this.setState(prevState => {
+                return {
+                    listCont: prevState.listCont.concat(newItem)
+                }
+            })
+
+            this._inputElement.value = "";
+        }
+
+        e.preventDefault(); 
     }
 
     render(){
-        let Lista;
-        if(this.state.listCont.length > 0){
-            Lista = (
-                <List ListMap={this.state.listCont} /> 
-            )
-        }
+        let ListMap = this.state.listCont;
+        let list = ListMap.map(this.createItem)
 
         return(
             <Aux>
                 <div className={container.whole_Container}>
-                    <InputName addList={this.inserimentoValore} valueInput={this.state.valueInputCheck} changeValue={this.changeInputValue} />
-                    {Lista}
+                    
+                <form onSubmit={this.inserimentoValore}>
+                    <input type="text" className={container.inputStyle} ref={(a) => this._inputElement = a}/>
+                    <input type="submit" className={container.inputButton} value="Inserisci elemento" />
+                </form>
                 </div>
+
+                <ul className={container.ListContainer}>
+                    {list}
+                </ul>
             </Aux>
         )
     }

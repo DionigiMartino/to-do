@@ -6,16 +6,3 @@
     list-style: none;
     padding-inline-start: 0px;
 }
-
-.ListContainer li {
-    color: #666;
-    padding: 10px 15px;
-    border-bottom: 1px solid #dedede;
-    margin-top: 5%;
-    cursor: pointer;
-    transition: all .7s;
-}
-
-.ListContainer li:hover {
-    transform: translateX(10px)
-}
